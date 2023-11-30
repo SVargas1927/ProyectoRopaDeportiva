@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3861778c92784f1c8cad48261b4f591e" Name="Diagram1">
+        <EntityTypeShape EntityType="DesarrolloWebModel.ClientesR" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="DesarrolloWebModel.DetalleVR" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="DesarrolloWebModel.OrdenesR" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="DesarrolloWebModel.VendedoresR" Width="1.5" PointX="0.75" PointY="5" />
+        <AssociationConnector Association="DesarrolloWebModel.FK_OrdenesR_ClientesR" />
+        <AssociationConnector Association="DesarrolloWebModel.FK_OrdenesR_VendedoresR" />
+        <EntityTypeShape EntityType="DesarrolloWebModel.DetallesOR" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="DesarrolloWebModel.ProductosR" Width="1.5" PointX="3" PointY="8" />
+        <EntityTypeShape EntityType="DesarrolloWebModel.VentasR" Width="1.5" PointX="3" PointY="5.375" />
+        <AssociationConnector Association="DesarrolloWebModel.FK_DetallesOR_OrdenesR" />
+        <AssociationConnector Association="DesarrolloWebModel.FK_DetallesOR_ProductosR" />
+        <AssociationConnector Association="DesarrolloWebModel.FK_DetalleVR_ProductosR" />
+        <AssociationConnector Association="DesarrolloWebModel.FK_DetalleVR_VentasR" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

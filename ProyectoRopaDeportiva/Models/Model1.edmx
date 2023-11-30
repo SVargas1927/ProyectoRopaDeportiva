@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DesarrolloWebModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClientesR">
+          <Key>
+            <PropertyRef Name="Cli_id" />
+          </Key>
+          <Property Name="Cli_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cli_nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cli_apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cli_correo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cli_direccion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cli_telefono" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetallesOR">
+          <Key>
+            <PropertyRef Name="Ode_detalleId" />
+          </Key>
+          <Property Name="Ode_detalleId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ode_ordenId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ode_productoId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ode_cantidad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ode_precioU" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ode_subtotal" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleVR">
+          <Key>
+            <PropertyRef Name="Vde_detalleId" />
+          </Key>
+          <Property Name="Vde_detalleId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vde_ventaId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vde_productoId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vde_cantidad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vde_precioUnitario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vde_subtotal" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdenesR">
+          <Key>
+            <PropertyRef Name="Ord_id" />
+          </Key>
+          <Property Name="Ord_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ord_clienteId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ord_fecha" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ord_estado" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ord_vendedorId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductosR">
+          <Key>
+            <PropertyRef Name="Pro_id" />
+          </Key>
+          <Property Name="Pro_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pro_nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pro_descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pro_precio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pro_stock" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pro_categoria" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VendedoresR">
+          <Key>
+            <PropertyRef Name="Adm_id" />
+          </Key>
+          <Property Name="Adm_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adm_nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adm_apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adm_correo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adm_telefono" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adm_direccion" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VentasR">
+          <Key>
+            <PropertyRef Name="Ven_id" />
+          </Key>
+          <Property Name="Ven_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ven_fechaVenta" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ven_total" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DetallesOR_OrdenesR">
+          <End Role="OrdenesR" Type="Self.OrdenesR" Multiplicity="1" />
+          <End Role="DetallesOR" Type="Self.DetallesOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenesR">
+              <PropertyRef Name="Ord_id" />
+            </Principal>
+            <Dependent Role="DetallesOR">
+              <PropertyRef Name="Ode_ordenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetallesOR_ProductosR">
+          <End Role="ProductosR" Type="Self.ProductosR" Multiplicity="1" />
+          <End Role="DetallesOR" Type="Self.DetallesOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosR">
+              <PropertyRef Name="Pro_id" />
+            </Principal>
+            <Dependent Role="DetallesOR">
+              <PropertyRef Name="Ode_productoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleVR_ProductosR">
+          <End Role="ProductosR" Type="Self.ProductosR" Multiplicity="1" />
+          <End Role="DetalleVR" Type="Self.DetalleVR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosR">
+              <PropertyRef Name="Pro_id" />
+            </Principal>
+            <Dependent Role="DetalleVR">
+              <PropertyRef Name="Vde_productoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleVR_VentasR">
+          <End Role="VentasR" Type="Self.VentasR" Multiplicity="1" />
+          <End Role="DetalleVR" Type="Self.DetalleVR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VentasR">
+              <PropertyRef Name="Ven_id" />
+            </Principal>
+            <Dependent Role="DetalleVR">
+              <PropertyRef Name="Vde_ventaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenesR_ClientesR">
+          <End Role="ClientesR" Type="Self.ClientesR" Multiplicity="1" />
+          <End Role="OrdenesR" Type="Self.OrdenesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientesR">
+              <PropertyRef Name="Cli_id" />
+            </Principal>
+            <Dependent Role="OrdenesR">
+              <PropertyRef Name="Ord_clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenesR_VendedoresR">
+          <End Role="VendedoresR" Type="Self.VendedoresR" Multiplicity="1" />
+          <End Role="OrdenesR" Type="Self.OrdenesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VendedoresR">
+              <PropertyRef Name="Adm_id" />
+            </Principal>
+            <Dependent Role="OrdenesR">
+              <PropertyRef Name="Ord_vendedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DesarrolloWebModelStoreContainer">
+          <EntitySet Name="ClientesR" EntityType="Self.ClientesR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetallesOR" EntityType="Self.DetallesOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleVR" EntityType="Self.DetalleVR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenesR" EntityType="Self.OrdenesR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductosR" EntityType="Self.ProductosR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VendedoresR" EntityType="Self.VendedoresR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VentasR" EntityType="Self.VentasR" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DetallesOR_OrdenesR" Association="Self.FK_DetallesOR_OrdenesR">
+            <End Role="OrdenesR" EntitySet="OrdenesR" />
+            <End Role="DetallesOR" EntitySet="DetallesOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetallesOR_ProductosR" Association="Self.FK_DetallesOR_ProductosR">
+            <End Role="ProductosR" EntitySet="ProductosR" />
+            <End Role="DetallesOR" EntitySet="DetallesOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleVR_ProductosR" Association="Self.FK_DetalleVR_ProductosR">
+            <End Role="ProductosR" EntitySet="ProductosR" />
+            <End Role="DetalleVR" EntitySet="DetalleVR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleVR_VentasR" Association="Self.FK_DetalleVR_VentasR">
+            <End Role="VentasR" EntitySet="VentasR" />
+            <End Role="DetalleVR" EntitySet="DetalleVR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenesR_ClientesR" Association="Self.FK_OrdenesR_ClientesR">
+            <End Role="ClientesR" EntitySet="ClientesR" />
+            <End Role="OrdenesR" EntitySet="OrdenesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenesR_VendedoresR" Association="Self.FK_OrdenesR_VendedoresR">
+            <End Role="VendedoresR" EntitySet="VendedoresR" />
+            <End Role="OrdenesR" EntitySet="OrdenesR" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DesarrolloWebModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DesarrolloWebEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClientesR" EntityType="DesarrolloWebModel.ClientesR" />
+          <EntitySet Name="DetalleVR" EntityType="DesarrolloWebModel.DetalleVR" />
+          <EntitySet Name="OrdenesR" EntityType="DesarrolloWebModel.OrdenesR" />
+          <EntitySet Name="VendedoresR" EntityType="DesarrolloWebModel.VendedoresR" />
+          <AssociationSet Name="FK_OrdenesR_ClientesR" Association="DesarrolloWebModel.FK_OrdenesR_ClientesR">
+            <End Role="ClientesR" EntitySet="ClientesR" />
+            <End Role="OrdenesR" EntitySet="OrdenesR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenesR_VendedoresR" Association="DesarrolloWebModel.FK_OrdenesR_VendedoresR">
+            <End Role="VendedoresR" EntitySet="VendedoresR" />
+            <End Role="OrdenesR" EntitySet="OrdenesR" />
+          </AssociationSet>
+          <EntitySet Name="DetallesOR" EntityType="DesarrolloWebModel.DetallesOR" />
+          <EntitySet Name="ProductosR" EntityType="DesarrolloWebModel.ProductosR" />
+          <EntitySet Name="VentasR" EntityType="DesarrolloWebModel.VentasR" />
+          <AssociationSet Name="FK_DetallesOR_OrdenesR" Association="DesarrolloWebModel.FK_DetallesOR_OrdenesR">
+            <End Role="OrdenesR" EntitySet="OrdenesR" />
+            <End Role="DetallesOR" EntitySet="DetallesOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetallesOR_ProductosR" Association="DesarrolloWebModel.FK_DetallesOR_ProductosR">
+            <End Role="ProductosR" EntitySet="ProductosR" />
+            <End Role="DetallesOR" EntitySet="DetallesOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleVR_ProductosR" Association="DesarrolloWebModel.FK_DetalleVR_ProductosR">
+            <End Role="ProductosR" EntitySet="ProductosR" />
+            <End Role="DetalleVR" EntitySet="DetalleVR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleVR_VentasR" Association="DesarrolloWebModel.FK_DetalleVR_VentasR">
+            <End Role="VentasR" EntitySet="VentasR" />
+            <End Role="DetalleVR" EntitySet="DetalleVR" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ClientesR">
+          <Key>
+            <PropertyRef Name="Cli_id" />
+          </Key>
+          <Property Name="Cli_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cli_nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cli_apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cli_correo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cli_direccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cli_telefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdenesR" Relationship="DesarrolloWebModel.FK_OrdenesR_ClientesR" FromRole="ClientesR" ToRole="OrdenesR" />
+        </EntityType>
+        <EntityType Name="DetalleVR">
+          <Key>
+            <PropertyRef Name="Vde_detalleId" />
+          </Key>
+          <Property Name="Vde_detalleId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vde_ventaId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vde_productoId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vde_cantidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vde_precioUnitario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vde_subtotal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductosR" Relationship="DesarrolloWebModel.FK_DetalleVR_ProductosR" FromRole="DetalleVR" ToRole="ProductosR" />
+          <NavigationProperty Name="VentasR" Relationship="DesarrolloWebModel.FK_DetalleVR_VentasR" FromRole="DetalleVR" ToRole="VentasR" />
+        </EntityType>
+        <EntityType Name="OrdenesR">
+          <Key>
+            <PropertyRef Name="Ord_id" />
+          </Key>
+          <Property Name="Ord_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ord_clienteId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ord_fecha" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ord_estado" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ord_vendedorId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClientesR" Relationship="DesarrolloWebModel.FK_OrdenesR_ClientesR" FromRole="OrdenesR" ToRole="ClientesR" />
+          <NavigationProperty Name="VendedoresR" Relationship="DesarrolloWebModel.FK_OrdenesR_VendedoresR" FromRole="OrdenesR" ToRole="VendedoresR" />
+          <NavigationProperty Name="DetallesOR" Relationship="DesarrolloWebModel.FK_DetallesOR_OrdenesR" FromRole="OrdenesR" ToRole="DetallesOR" />
+        </EntityType>
+        <EntityType Name="VendedoresR">
+          <Key>
+            <PropertyRef Name="Adm_id" />
+          </Key>
+          <Property Name="Adm_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adm_nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adm_apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adm_correo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adm_telefono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adm_direccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdenesR" Relationship="DesarrolloWebModel.FK_OrdenesR_VendedoresR" FromRole="VendedoresR" ToRole="OrdenesR" />
+        </EntityType>
+        <Association Name="FK_OrdenesR_ClientesR">
+          <End Type="DesarrolloWebModel.ClientesR" Role="ClientesR" Multiplicity="1" />
+          <End Type="DesarrolloWebModel.OrdenesR" Role="OrdenesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientesR">
+              <PropertyRef Name="Cli_id" />
+            </Principal>
+            <Dependent Role="OrdenesR">
+              <PropertyRef Name="Ord_clienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenesR_VendedoresR">
+          <End Type="DesarrolloWebModel.VendedoresR" Role="VendedoresR" Multiplicity="1" />
+          <End Type="DesarrolloWebModel.OrdenesR" Role="OrdenesR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VendedoresR">
+              <PropertyRef Name="Adm_id" />
+            </Principal>
+            <Dependent Role="OrdenesR">
+              <PropertyRef Name="Ord_vendedorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DetallesOR">
+          <Key>
+            <PropertyRef Name="Ode_detalleId" />
+          </Key>
+          <Property Name="Ode_detalleId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ode_ordenId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ode_productoId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ode_cantidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ode_precioU" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ode_subtotal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrdenesR" Relationship="DesarrolloWebModel.FK_DetallesOR_OrdenesR" FromRole="DetallesOR" ToRole="OrdenesR" />
+          <NavigationProperty Name="ProductosR" Relationship="DesarrolloWebModel.FK_DetallesOR_ProductosR" FromRole="DetallesOR" ToRole="ProductosR" />
+        </EntityType>
+        <EntityType Name="ProductosR">
+          <Key>
+            <PropertyRef Name="Pro_id" />
+          </Key>
+          <Property Name="Pro_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_precio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_stock" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pro_categoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetallesOR" Relationship="DesarrolloWebModel.FK_DetallesOR_ProductosR" FromRole="ProductosR" ToRole="DetallesOR" />
+          <NavigationProperty Name="DetalleVR" Relationship="DesarrolloWebModel.FK_DetalleVR_ProductosR" FromRole="ProductosR" ToRole="DetalleVR" />
+        </EntityType>
+        <EntityType Name="VentasR">
+          <Key>
+            <PropertyRef Name="Ven_id" />
+          </Key>
+          <Property Name="Ven_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ven_fechaVenta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ven_total" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetalleVR" Relationship="DesarrolloWebModel.FK_DetalleVR_VentasR" FromRole="VentasR" ToRole="DetalleVR" />
+        </EntityType>
+        <Association Name="FK_DetallesOR_OrdenesR">
+          <End Type="DesarrolloWebModel.OrdenesR" Role="OrdenesR" Multiplicity="1" />
+          <End Type="DesarrolloWebModel.DetallesOR" Role="DetallesOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenesR">
+              <PropertyRef Name="Ord_id" />
+            </Principal>
+            <Dependent Role="DetallesOR">
+              <PropertyRef Name="Ode_ordenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetallesOR_ProductosR">
+          <End Type="DesarrolloWebModel.ProductosR" Role="ProductosR" Multiplicity="1" />
+          <End Type="DesarrolloWebModel.DetallesOR" Role="DetallesOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosR">
+              <PropertyRef Name="Pro_id" />
+            </Principal>
+            <Dependent Role="DetallesOR">
+              <PropertyRef Name="Ode_productoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleVR_ProductosR">
+          <End Type="DesarrolloWebModel.ProductosR" Role="ProductosR" Multiplicity="1" />
+          <End Type="DesarrolloWebModel.DetalleVR" Role="DetalleVR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosR">
+              <PropertyRef Name="Pro_id" />
+            </Principal>
+            <Dependent Role="DetalleVR">
+              <PropertyRef Name="Vde_productoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleVR_VentasR">
+          <End Type="DesarrolloWebModel.VentasR" Role="VentasR" Multiplicity="1" />
+          <End Type="DesarrolloWebModel.DetalleVR" Role="DetalleVR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VentasR">
+              <PropertyRef Name="Ven_id" />
+            </Principal>
+            <Dependent Role="DetalleVR">
+              <PropertyRef Name="Vde_ventaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DesarrolloWebModelStoreContainer" CdmEntityContainer="DesarrolloWebEntities">
+          <EntitySetMapping Name="ClientesR">
+            <EntityTypeMapping TypeName="DesarrolloWebModel.ClientesR">
+              <MappingFragment StoreEntitySet="ClientesR">
+                <ScalarProperty Name="Cli_telefono" ColumnName="Cli_telefono" />
+                <ScalarProperty Name="Cli_direccion" ColumnName="Cli_direccion" />
+                <ScalarProperty Name="Cli_correo" ColumnName="Cli_correo" />
+                <ScalarProperty Name="Cli_apellido" ColumnName="Cli_apellido" />
+                <ScalarProperty Name="Cli_nombre" ColumnName="Cli_nombre" />
+                <ScalarProperty Name="Cli_id" ColumnName="Cli_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleVR">
+            <EntityTypeMapping TypeName="DesarrolloWebModel.DetalleVR">
+              <MappingFragment StoreEntitySet="DetalleVR">
+                <ScalarProperty Name="Vde_subtotal" ColumnName="Vde_subtotal" />
+                <ScalarProperty Name="Vde_precioUnitario" ColumnName="Vde_precioUnitario" />
+                <ScalarProperty Name="Vde_cantidad" ColumnName="Vde_cantidad" />
+                <ScalarProperty Name="Vde_productoId" ColumnName="Vde_productoId" />
+                <ScalarProperty Name="Vde_ventaId" ColumnName="Vde_ventaId" />
+                <ScalarProperty Name="Vde_detalleId" ColumnName="Vde_detalleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenesR">
+            <EntityTypeMapping TypeName="DesarrolloWebModel.OrdenesR">
+              <MappingFragment StoreEntitySet="OrdenesR">
+                <ScalarProperty Name="Ord_vendedorId" ColumnName="Ord_vendedorId" />
+                <ScalarProperty Name="Ord_estado" ColumnName="Ord_estado" />
+                <ScalarProperty Name="Ord_fecha" ColumnName="Ord_fecha" />
+                <ScalarProperty Name="Ord_clienteId" ColumnName="Ord_clienteId" />
+                <ScalarProperty Name="Ord_id" ColumnName="Ord_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendedoresR">
+            <EntityTypeMapping TypeName="DesarrolloWebModel.VendedoresR">
+              <MappingFragment StoreEntitySet="VendedoresR">
+                <ScalarProperty Name="Adm_direccion" ColumnName="Adm_direccion" />
+                <ScalarProperty Name="Adm_telefono" ColumnName="Adm_telefono" />
+                <ScalarProperty Name="Adm_correo" ColumnName="Adm_correo" />
+                <ScalarProperty Name="Adm_apellido" ColumnName="Adm_apellido" />
+                <ScalarProperty Name="Adm_nombre" ColumnName="Adm_nombre" />
+                <ScalarProperty Name="Adm_id" ColumnName="Adm_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetallesOR">
+            <EntityTypeMapping TypeName="DesarrolloWebModel.DetallesOR">
+              <MappingFragment StoreEntitySet="DetallesOR">
+                <ScalarProperty Name="Ode_subtotal" ColumnName="Ode_subtotal" />
+                <ScalarProperty Name="Ode_precioU" ColumnName="Ode_precioU" />
+                <ScalarProperty Name="Ode_cantidad" ColumnName="Ode_cantidad" />
+                <ScalarProperty Name="Ode_productoId" ColumnName="Ode_productoId" />
+                <ScalarProperty Name="Ode_ordenId" ColumnName="Ode_ordenId" />
+                <ScalarProperty Name="Ode_detalleId" ColumnName="Ode_detalleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductosR">
+            <EntityTypeMapping TypeName="DesarrolloWebModel.ProductosR">
+              <MappingFragment StoreEntitySet="ProductosR">
+                <ScalarProperty Name="Pro_categoria" ColumnName="Pro_categoria" />
+                <ScalarProperty Name="Pro_stock" ColumnName="Pro_stock" />
+                <ScalarProperty Name="Pro_precio" ColumnName="Pro_precio" />
+                <ScalarProperty Name="Pro_descripcion" ColumnName="Pro_descripcion" />
+                <ScalarProperty Name="Pro_nombre" ColumnName="Pro_nombre" />
+                <ScalarProperty Name="Pro_id" ColumnName="Pro_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VentasR">
+            <EntityTypeMapping TypeName="DesarrolloWebModel.VentasR">
+              <MappingFragment StoreEntitySet="VentasR">
+                <ScalarProperty Name="Ven_total" ColumnName="Ven_total" />
+                <ScalarProperty Name="Ven_fechaVenta" ColumnName="Ven_fechaVenta" />
+                <ScalarProperty Name="Ven_id" ColumnName="Ven_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
